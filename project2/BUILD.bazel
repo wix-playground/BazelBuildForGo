@@ -1,0 +1,15 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+
+go_library(
+    name = "go_default_library",
+    srcs = ["main.go"],
+    importpath = "github.com/BazelBuildForGo/project2",
+    visibility = ["//visibility:private"],
+    deps = ["@com_github_wix_private_bazelbuildforgo//project1/p1lib:go_default_library"],
+)
+
+go_binary(
+    name = "project2",
+    embed = [":go_default_library"],
+    visibility = ["//visibility:public"],
+)

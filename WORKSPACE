@@ -1,4 +1,4 @@
-workspace(name = "com_github_wix_private_BazelBuildForGo")
+workspace(name = "com_github_wix_private_bazelbuildforgo")
 
 http_archive(
     name = "io_bazel_rules_go",
