@@ -5,5 +5,5 @@ go_library(
     srcs = ["p1lib.go"],
     importpath = "github.com/BazelBuildForGo/project1/p1lib",
     visibility = ["//visibility:public"],
-    deps = ["@com_github_wix_private_bazelbuildforgo//project1/dep1:go_default_library"],
+    deps = ["//project1/dep1:go_default_library"],
 )
