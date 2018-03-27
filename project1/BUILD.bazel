@@ -3,13 +3,18 @@ load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
 go_library(
     name = "go_default_library",
     srcs = ["main.go"],
-    importpath = "github.com/BazelBuildForGo/project1",
+    importpath = "github.com/wix-private/BazelBuildForGo/project1",
     visibility = ["//visibility:private"],
-    deps = ["@com_github_wix_private_bazelbuildforgo//project1/p1lib:go_default_library"],
+    deps = [
+        "//project1/p1lib:go_default_library",
+        "//vendor/github.com/coreos/etcd/client:go_default_library",
+    ],
 )
 
 go_binary(
     name = "project1",
     embed = [":go_default_library"],
+    goarch = "amd64",
+    goos = "linux",
     visibility = ["//visibility:public"],
 )
