@@ -7,7 +7,7 @@ go_library(
     visibility = ["//visibility:private"],
     deps = [
         "//project1/p1lib:go_default_library",
-        "//vendor/github.com/coreos/etcd/client:go_default_library",
+        "@com_github_coreos_etcd_client//client:go_default_library",
     ],
 )
 
