@@ -5,6 +5,7 @@ http_archive(
     url = "https://github.com/bazelbuild/rules_go/releases/download/0.10.1/rules_go-0.10.1.tar.gz",
     sha256 = "4b14d8dd31c6dbaf3ff871adcd03f28c3274e42abc855cb8fb4d01233c0154dc",
 )
+
 http_archive(
     name = "bazel_gazelle",
     url = "https://github.com/bazelbuild/bazel-gazelle/releases/download/0.10.1/bazel-gazelle-0.10.1.tar.gz",
@@ -19,6 +20,8 @@ go_register_toolchains()
 go_repository(
     name = "com_github_coreos_etcd",
     commit = "f5c56401d74401f040258afeb5fbdd875fafaf69",
+    build_file_generation = "on",
+    build_file_name = "BUILD.bazel",
     importpath = "github.com/coreos/etcd",
 )
 
@@ -41,8 +44,8 @@ load(
 container_repositories()
 
 container_pull(
-   name = "official_ubuntu",
+   name = "alpine",
    registry = "index.docker.io",
-   repository = "library/ubuntu",
-   tag = "14.04",
+   repository = "library/alpine",
+   tag = "3.4",
 )

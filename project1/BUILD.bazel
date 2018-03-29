@@ -1,8 +1,7 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
 load("@bazel_tools//tools/build_defs/pkg:pkg.bzl", "pkg_tar", "pkg_deb")
 load("@io_bazel_rules_docker//go:image.bzl", "go_image")
-load("@io_bazel_rules_docker//container:container.bzl","container_image","container_push")
-
+load("@io_bazel_rules_docker//container:container.bzl", "container_image", "container_push")
 
 go_library(
     name = "go_default_library",
@@ -11,7 +10,7 @@ go_library(
     visibility = ["//visibility:private"],
     deps = [
         "//project1/p1lib:go_default_library",
-        "//vendor/github.com/coreos/etcd/client:go_default_library",
+        "@com_github_coreos_etcd//client:go_default_library",
     ],
 )
 
@@ -34,16 +33,16 @@ pkg_tar(
 
 container_image(
     name = "project1-bin-container",
-    base = "@official_ubuntu//image",
-    tars = [":project1-bin-tar1"],
+    base = "@alpine//image",
     cmd = ["/project1"],
+    tars = [":project1-bin-tar1"],
 )
 
 container_push(
-   name = "project1_push",
-   image = ":project1-bin-container",
-   registry = "gcr.io",
-   repository = "gcb-with-custom-workers/project1",
-   tag = "latest",
-   format = "Docker",
+    name = "project1_push",
+    format = "Docker",
+    image = ":project1-bin-container",
+    registry = "gcr.io",
+    repository = "gcb-with-custom-workers/project1",
+    tag = "latest",
 )

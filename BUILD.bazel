@@ -1,12 +1,9 @@
 load("@bazel_gazelle//:def.bzl", "gazelle")
 
+# gazelle:build_file_name BUILD.bazel
+
 gazelle(
     name = "gazelle",
     command = "fix",
-    external = "external",
-    extra_args = [
-        "-build_file_name",
-        "BUILD.bazel",
-    ],
     prefix = "github.com/wix-private/BazelBuildForGo",
 )
