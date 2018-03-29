@@ -1,4 +1,5 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+load("@bazel_tools//tools/build_defs/pkg:pkg.bzl", "pkg_tar", "pkg_deb")
 
 go_library(
     name = "go_default_library",
@@ -7,14 +8,26 @@ go_library(
     visibility = ["//visibility:private"],
     deps = [
         "//project1/p1lib:go_default_library",
-        "@com_github_coreos_etcd_client//client:go_default_library",
+        "@com_github_coreos_etcd_client/client:go_default_library",
     ],
 )
 
 go_binary(
     name = "project1",
     embed = [":go_default_library"],
-    goarch = "amd64",
-    goos = "linux",
     visibility = ["//visibility:public"],
+    pure = "on",
+    goos = "linux",
+    goarch = "amd64",
 )
+
+pkg_tar(
+    name = "project1-bin-tar1",
+    strip_prefix = "/project1/linux_amd64_pure_stripped",
+    package_dir = "/",
+    srcs = ["//project1"],
+    modes = {"project1": "0755"},
+)
+
+
+
