@@ -17,10 +17,32 @@ go_register_toolchains()
 
 
 go_repository(
-    name = "com_github_coreos_etcd_client",
+    name = "com_github_coreos_etcd",
     commit = "f5c56401d74401f040258afeb5fbdd875fafaf69",
     importpath = "github.com/coreos/etcd",
 )
 
 load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies")
 gazelle_dependencies()
+
+
+git_repository(
+    name = "io_bazel_rules_docker",
+    remote = "https://github.com/bazelbuild/rules_docker.git",
+    tag = "v0.4.0",
+)
+
+load(
+    "@io_bazel_rules_docker//container:container.bzl",
+    "container_image","container_pull",
+    container_repositories = "repositories",
+)
+
+container_repositories()
+
+container_pull(
+   name = "official_ubuntu",
+   registry = "index.docker.io",
+   repository = "library/ubuntu",
+   tag = "14.04",
+)
